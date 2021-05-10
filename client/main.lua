@@ -306,21 +306,21 @@ end)
 
 
 RegisterCommand('911', function(playerId, args, rawCommand)
-	if not args[1] then exports['mythic_notify']:SendAlert('error', 'You must include a message with your 911 call') return end
+    if not args[1] then QBCore.Functions.Notify('You must include a message with your 911 call', 'error') return end
 	args = table.concat(args, ' ')
 	local caller
 	if Config.PhoneNumber then caller = phone else caller = ('%s %s'):format(firstname, lastname) end
 	if Config.Default911 then TriggerServerEvent('mdt:newCall', args, caller, playerCoords) else
 		TriggerServerEvent('wf-alerts:svNotify911', args, caller, playerCoords)
 	end
-	exports['mythic_notify']:SendAlert('success', 'Your message has been sent to the authorities')
+	QBCore.Functions.Notify('Your message has been sent to the authorities', 'success')
 end, false)
 
 RegisterCommand('911a', function(playerId, args, rawCommand)
-	if not args[1] then exports['mythic_notify']:SendAlert('error', 'You must include a message with your 911 call') return end
+    if not args[1] then QBCore.Functions.Notify('You must include a message with your 911 call', 'error') return end
 	args = table.concat(args, ' ')
 	if Config.Default911 then TriggerServerEvent('mdt:newCall', args, _U('caller_unknown'), playerCoords) else
 		TriggerServerEvent('wf-alerts:svNotify911', args, _U('caller_unknown'), playerCoords)
 	end
-	exports['mythic_notify']:SendAlert('success', 'Your message has been sent to the authorities')
+    QBCore.Functions.Notify('Your message has been sent to the authorities', 'success')
 end, false)
