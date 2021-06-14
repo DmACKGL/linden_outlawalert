@@ -7,17 +7,13 @@ QBCore.Functions.CreateCallback('linden_outlawalert:getCharData', function(sourc
 	if not xPlayer then return end
 
     local identifier = xPlayer.PlayerData.citizenid
-    QBCore.Functions.ExecuteSql(true, 'SELECT firstname, lastname, phone_number FROM users WHERE identifier = @identifier', {
-		['@identifier'] = identifier
-	}, function(results)
+	QBCore.Functions.ExecuteSql(true, {['@identifier'] = identifier}, 'SELECT firstname, lastname, phone_number FROM users WHERE identifier = @identifier', function(results)
 		cb(results[1])
 	end)
 end)
 
 QBCore.Functions.CreateCallback('linden_outlawalert:isVehicleOwned', function(source, cb, plate)
-	QBCore.Functions.ExecuteSql(true, 'SELECT plate FROM player_vehicles WHERE plate = @plate', {
-		['@plate'] = plate
-	}, function(result)
+	QBCore.Functions.ExecuteSql(true, {['@plate'] = plate}, 'SELECT plate FROM player_vehicles WHERE plate = @plate', function(result)
 		if result[1] then
 			cb(true)
 		else
